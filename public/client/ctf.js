@@ -347,7 +347,7 @@ function animate() {
   }
 
   for (var key in envVariables.playerContainer) {
-    envVariables.playerContainer[key].model.rotation.y += 0.075;
+    envVariables.playerContainer[key].model.rotation.y += 0.05;
   }
 
   renderer.render( scene, camera );

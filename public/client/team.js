@@ -27,7 +27,7 @@ var blueTeam = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
 
 var createPlayerModel = function(teamId, username) {
   var theText = username;
-  var nameCenter = String(username).length * 2;
+  var nameCenter = String(username).length * 2.5;
 
   var hash = document.location.hash.substr( 1 );
 
