@@ -19,7 +19,7 @@ var handleWin = function(player, roomProperties, io) {
 
   //send object containing the winning team and the updated room properties to the clients
   var winObject = SendObject.createSendWinObj(player, roomProperties);
-  console.log('winObject: ', JSON.stringify(winObject));  
+  console.log('winObject: ', JSON.stringify(winObject));
 
   io.sockets.in(player.room).emit('winReset', JSON.stringify(winObject));
 };
@@ -53,7 +53,7 @@ var checkForWin = function(player, roomProperties, io) {
     // roomProperties[player.room].flag.position.y = randY;
 
     //send object containing updated score and flag position to clients
-    var scoreAndFlagObject = SendObject.createSendScoreAndFlagObj(player, roomProperties);  
+    var scoreAndFlagObject = SendObject.createSendScoreAndFlagObj(player, roomProperties);
     io.sockets.in(player.room).emit('updateScoreFlag', JSON.stringify(scoreAndFlagObject));
   }
 
@@ -69,6 +69,13 @@ module.exports.updateScore = function(player, roomProperties, io) {
   //check for win
   checkForWin(player, roomProperties, io);
 
+  if (player.team === 0) {
+    io.sockets.in(player.room).emit('redScores');
+  } else {
+    io.sockets.in(player.room).emit('blueScores');
+  }
+
+
 };
 
 // MIKE
@@ -79,7 +86,7 @@ module.exports.resetGame = function(player,roomProperties,io){
   roomProperties[player.room].flag.position.x = 0; //random position along gameboard on flag reset
 
   //send object containing updated score and flag position to clients
-  var scoreAndFlagObject = SendObject.createResetScoreAndFlagObj(player, roomProperties);  
+  var scoreAndFlagObject = SendObject.createResetScoreAndFlagObj(player, roomProperties);
   io.sockets.in(player.room).emit('updateScoreFlag', JSON.stringify(scoreAndFlagObject));
 
 };

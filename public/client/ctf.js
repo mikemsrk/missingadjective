@@ -207,7 +207,8 @@ function init() {
   // FIRE THE LAZOR
   var onClick = function(event) {
     if (controlsEnabled) {
-      console.log('pew!')
+      soundController.playSound('rgFire.wav');
+      // console.log('pew!');
     }
   }
 

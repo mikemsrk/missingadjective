@@ -102,14 +102,29 @@ socket.on('updateScoreFlag', function(data) { // listens for a score event from 
 
   envVariables.player.score = false; // allows the player to score again after the flag position resets
   envVariables.score = scoreFlagData.teamScores; // update scores
+
+
   $('#red-score').text(envVariables.score[0]);
   $('#blue-score').text(envVariables.score[1]);
+
 
   envVariables.flag.position = scoreFlagData.flag.position; // reset flag position
   envVariables.flag.model.position.x = scoreFlagData.flag.position.x; // reset flag position
   envVariables.flag.model.position.z = scoreFlagData.flag.position.y; // reset flag position
   scene.add(envVariables.flag.model);
   // uiUpdateScore(); // update scoreboard
+});
+
+socket.on('redScores', function() {
+  if ($('#red-score').text !== "5") {
+    soundController.playSound('red_scores.wav');
+  }
+});
+
+socket.on('blueScores', function() {
+  if ($('#blue-score').text !== "5") {
+    soundController.playSound('blue_scores.wav');
+  }
 });
 
 socket.on('winReset', function(data){ // listens for whether or not a team has won from the server
@@ -124,16 +139,22 @@ socket.on('winReset', function(data){ // listens for whether or not a team has w
   if (envVariables.winningTeam === 0) {
     $('#red-score').text("5");
     $('#win-status').text('red team wins! get ready for the next round...');
-    soundController.playSound('key.wav');
+    // soundController.playSound('key.wav');
+    soundController.playSound('red_wins.wav');
   } else {
     $('#blue-score').text("5");
     $('#win-status').text('blue team wins! get ready for the next round...');
-    soundController.playSound('key.wav');
+    // soundController.playSound('key.wav');
+    soundController.playSound('blue_wins.wav');
   }
   console.log(resetData); // {"winningTeamId":0,"flag":{"position":{"x":0,"y":0},"radius":2},"teamScores":{"0":0,"1":0},"players":{"N0XuuRGV_BTRAGsAAAAA":{"id":"N0XuuRGV_BTRAGsAAAAA","name":"mike","position":{"x":19.789842017926276,"y":311.8561511626467},"team":0,"hasFlag":false}}}
 
   var counter = 3;
-  // TODO: Display "RESETTING GAME...3"
+
+  setTimeout(function() {
+    soundController.playSound('countdown.mp3');
+  }, 1000);
+
   var resetting = setInterval(function(){
     $('#win-status').text("starting in... " + counter);
     counter--;
