@@ -134,6 +134,7 @@ var gameLogic = module.exports = function(io, player) {
     //update the score when a player says that it has scored
     //ideally, there would be server side verification or the server itself would check for scoring, but this logic is not yet implemented
     Score.updateScore(player, roomProperties, io);
+    flagCarrier = '';
 
   });  
 
