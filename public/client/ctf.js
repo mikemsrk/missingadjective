@@ -348,7 +348,7 @@ function animate() {
   }
 
   for (var key in envVariables.playerContainer) {
-    envVariables.playerContainer[key].model.rotation.y += 0.05;
+    envVariables.playerContainer[key].model.rotation.y += 0.05;  // rotation speed of the nameplate while rendering at 60 fps
   }
 
   renderer.render( scene, camera );

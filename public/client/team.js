@@ -36,12 +36,13 @@ var createPlayerModel = function(teamId, username) {
   }
 
   var text3d = new THREE.TextGeometry( theText, {
-    size: 7,
-    height: 1,
+    size: 7,            // font size
+    height: 1,          // thickness of the name
     curveSegments: 2,
     font: "helvetiker"
   });
 
+  // offset the player's name above the sphere model
   for (var i = 0; i < text3d.vertices.length; i++) {
     text3d.vertices[i].y += 10;
     text3d.vertices[i].x -= nameCenter;
